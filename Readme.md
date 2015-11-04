@@ -1,3 +1,3 @@
 TODO
 
-See comments in stammtisch/modules/ModuleTokenlohin.php 
+See comments in stammtisch/modules/ModuleTokenlogin.php 
