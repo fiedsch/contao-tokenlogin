@@ -22,6 +22,7 @@
  * that creates a new member. See classes/MyHooks::importFromTokenlist() for
  * an example.
  */
+
 class ModuleTokenlogin extends \ModuleLogin {
 
     /**
@@ -36,6 +37,9 @@ class ModuleTokenlogin extends \ModuleLogin {
     protected $strTemplate = 'mod_tokenlogin_1cl';
 
 
+    /**
+     * generate the module
+     */
     public function generate() {
 
         if (TL_MODE == 'BE') {
@@ -52,7 +56,7 @@ class ModuleTokenlogin extends \ModuleLogin {
 
         }
 
-        $this->loadLanguageFile('modules'); // also required in compile()
+        $this->loadLanguageFile('modules');
 
         if (\Input::post('FORM_SUBMIT') == 'tl_login') {
 
@@ -75,15 +79,15 @@ class ModuleTokenlogin extends \ModuleLogin {
     }
 
     /**
-     * Generate the module.
+     * Compile the module.
      */
     protected function compile() {
 
         parent::compile();
 
-        // use a different template
-
         if (!FE_USER_LOGGED_IN) {
+
+            // use a different template
 
             $this->strTemplate = ($this->cols > 1) ? 'mod_tokenlogin_2cl' : 'mod_tokenlogin_1cl';
             $this->Template->setName($this->strTemplate);
@@ -96,7 +100,7 @@ class ModuleTokenlogin extends \ModuleLogin {
             if (isset($_SESSION['LOGIN_ERROR'])) {
 
                 if ($_SESSION['LOGIN_ERROR'] === $GLOBALS['TL_LANG']['ERR']['invalidLogin']) {
-                    $_SESSION['LOGIN_ERROR'] = $GLOBALS['TL_LANG']['FMD']['logtok_loginError'];
+                    $_SESSION['LOGIN_ERROR'] = $GLOBALS['TL_LANG']['FMD']['logtok_invalidLogin'];
                 }
 
                 $this->Template->message = $_SESSION['LOGIN_ERROR'];
@@ -110,9 +114,10 @@ class ModuleTokenlogin extends \ModuleLogin {
 
         } else {
 
-            // change the "logged in as ..." message
+            // adjust the "logged in as ..." message
 
-            $this->Template->loggedInAs = sprintf($GLOBALS['TL_LANG']['FMD']['logtok_loggedInAs'], $this->User->username);
+            $this->Template->loggedInAs
+                = sprintf($GLOBALS['TL_LANG']['FMD']['logtok_loggedInAs'], $this->User->username);
 
         }
 
