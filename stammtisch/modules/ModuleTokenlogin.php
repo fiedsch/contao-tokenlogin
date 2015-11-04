@@ -52,16 +52,23 @@ class ModuleTokenlogin extends \ModuleLogin {
 
         }
 
-        // Login: there is no password field in our login form.
-        // We will set this here so the regular login process will be happy.
+        $this->loadLanguageFile('modules'); // also required in compile()
 
         if (\Input::post('FORM_SUBMIT') == 'tl_login') {
+
+            // Check whether a token was supplied
+
+            if (empty($_POST['username'])) {
+                // adjust error message
+                $_SESSION['LOGIN_ERROR'] = $GLOBALS['TL_LANG']['FMD']['logtok_emptyField'];
+                $this->reload();
+            }
+
+            // Login: there is no password field in our login form.
+            // We will set this here so the regular login process will be happy.
+
             \Input::setPost('password', self::TOKENUSERPASSWORD);
         }
-        // Logout: no special action needed
-        /*
-        if (\Input::post('FORM_SUBMIT') == 'tl_logout') { }
-        */
 
         return parent::generate();
 
@@ -79,8 +86,33 @@ class ModuleTokenlogin extends \ModuleLogin {
         if (!FE_USER_LOGGED_IN) {
 
             $this->strTemplate = ($this->cols > 1) ? 'mod_tokenlogin_2cl' : 'mod_tokenlogin_1cl';
-
             $this->Template->setName($this->strTemplate);
+
+            $this->Template->username = $GLOBALS['TL_LANG']['FMD']['toklog_token'];
+            $this->Template->slabel = specialchars($GLOBALS['TL_LANG']['FMD']['toklog_slabel']);
+
+            // adjust error messages
+
+            if (isset($_SESSION['LOGIN_ERROR'])) {
+
+                if ($_SESSION['LOGIN_ERROR'] === $GLOBALS['TL_LANG']['ERR']['invalidLogin']) {
+                    $_SESSION['LOGIN_ERROR'] = $GLOBALS['TL_LANG']['FMD']['logtok_loginError'];
+                }
+
+                $this->Template->message = $_SESSION['LOGIN_ERROR'];
+            }
+
+
+            if (!empty($_SESSION['TL_ERROR'])) {
+                $this->Template->message = $_SESSION['TL_ERROR'];
+                $_SESSION['TL_ERROR'] = array();
+            }
+
+        } else {
+
+            // change the "logged in as ..." message
+
+            $this->Template->loggedInAs = sprintf($GLOBALS['TL_LANG']['FMD']['logtok_loggedInAs'], $this->User->username);
 
         }
 
