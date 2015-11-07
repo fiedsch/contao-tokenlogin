@@ -18,7 +18,7 @@
           <td class="col_0 col_first"><label for="username"><?= $this->username ?></label></td>
           <td class="col_1 col_last"><input type="text" name="username" id="username" class="text" value="<?= $this->value ?>"></td>
         </tr>
-         <?php /* no password field here! */ ?>
+         <?php /* no password field here! (this is the only change to the original file) */ ?>
         <?php if ($this->autologin): ?>
           <tr class="row_2">
             <td class="col_0 col_first">&nbsp;</td>

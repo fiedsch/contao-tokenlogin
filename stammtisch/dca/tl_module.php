@@ -1,4 +1,4 @@
-<?php // -*- coding: utf-8 ; mode: php  -*-
+<?php
 
 // the configuration is the same as the configuration of the regular login module
 

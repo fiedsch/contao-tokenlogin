@@ -3,15 +3,17 @@
 /**
  * @copyright  Andreas Fieger 2015
  * @author     Andreas Fieger (https://github.com/fiedsch)
- * @package    Tests / POC / Misc.
+ * @license    LGPL-3.0+
  *
- * Module to allow Login with a token allone (as opposed to username+password).
- * To achieve this we do the following: username and token are semantically swapped
- * as
+ * Demo-Code for the "Contao Stammtisch München" (category Tests, POC, Misc.)
+ *
+ * Module to allow login with a token alone (as opposed to username+password).
+ * To achieve this we do the following: username and token are semantically
+ * swapped as
  *  - we can not have one username having multiple passwords.
  *  - but we can have different user names always having the same password!
  *
- * This fixed password will be the class constant TOKENUSERPASSWORD.
+ * The password for all such users will be the class constant TOKENUSERPASSWORD.
  *
  * The token which technically is the username will serve as the password.
  *

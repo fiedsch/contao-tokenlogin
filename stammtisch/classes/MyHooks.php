@@ -1,9 +1,16 @@
 <?php
 
+/**
+ * Provides methods for the TokenLogin module.
+ *
+ *  This implementaion serves as an example and has to be adjusted
+ * to fit the project specific needs.
+ */
+
 class MyHooks {
 
     /**
-     * we want our users that logged in via token to be in a special member group
+     * we want our users that log in via token to be in a special member group
      * This is this group's ID
      * FIXME make that configurable
      */
@@ -44,7 +51,7 @@ class MyHooks {
             // (1) Check if the token supplied in $strUsername is found in our database
             // If not found: return false
             //
-            // assume true in this test
+            // Always assume true in this test
             //
             // FIXME implement real logic otherwise every login will be valid
 
