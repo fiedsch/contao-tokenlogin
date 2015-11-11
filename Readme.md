@@ -1,6 +1,6 @@
 # Token Login 
 
-This Codes describes a module to allow Login with a token alone (as opposed 
+This Code describes a module to allow Login with a token alone (as opposed 
 to username+password).
 
 To achieve this we do the following: username and token are semantically 
@@ -8,6 +8,7 @@ swapped as
 * we can not have one username having multiple passwords.
 * but we can have different user names always having the same password!
 The token which technically is the username will serve as the password.
+
 
 ## Changes to the regular login process
 
