@@ -81,8 +81,6 @@ class ModuleTokenlogin extends \ModuleLogin {
 
         if (\Input::post('FORM_SUBMIT') == 'tl_login') {
 
-            // Check whether a token was supplied
-
             if (empty($_POST['username'])) {
                 // adjust error message
                 $_SESSION['LOGIN_ERROR'] = $GLOBALS['TL_LANG']['FMD']['logtok_emptyField'];
