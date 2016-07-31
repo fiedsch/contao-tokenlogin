@@ -60,6 +60,25 @@ class ModuleTokenlogin extends \ModuleLogin {
 
         $this->loadLanguageFile('modules');
 
+        // Token aus der URL holen und damit quasi einen "autologin" durchführen
+        //
+        // Achtung: wenn das Token gültig ist wird der Login so funktionieren.
+        // Wenn nicht, geschieht durch parent::generate(); ein reload der Seite
+        // Da die Url dann aber noch die Gleiche ist haben wir eine Endlosschleife gebaut.
+        //
+        // Daher: Hier bereits prüfen "ob es funktionieren wird"
+        $token_from_url = \Input::get('token');
+
+        if ($token_from_url && !FE_USER_LOGGED_IN) {
+          // Wird der Login mit diesem Token erfolgreich sein
+          $sampleModel = \SampleModel::findByToken($token_from_url);
+          if ($sampleModel) {
+            \Input::setPost('username', $token_from_url);
+            \Input::setPost('FORM_SUBMIT', 'tl_login');
+            \Input::setPost('REQUEST_TOKEN', REQUEST_TOKEN);
+          }
+        }
+
         if (\Input::post('FORM_SUBMIT') == 'tl_login') {
 
             // Check whether a token was supplied
